@@ -15,6 +15,18 @@ header {
   padding:20px;
 }
 
+.logo {
+  width:80px;
+  border-radius:50%;
+}
+
+/* 🔥 SLIDER */
+.slider img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
 .container { padding:20px; }
 
 .product, .cart, form {
@@ -22,6 +34,12 @@ header {
   padding:15px;
   border-radius:10px;
   margin-bottom:20px;
+}
+
+.product img {
+  width:100%;
+  border-radius:10px;
+  margin-bottom:10px;
 }
 
 button {
@@ -36,24 +54,33 @@ button {
 .add { background:#2e7d32; color:white; }
 .pay { background:#25D366; color:white; }
 
-.cart-item { margin:5px 0; }
-
 .total { font-weight:bold; font-size:18px; color:green; }
 
+.social img{
+  width:40px;
+  margin:10px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🌴 Coco Mithas 🌴</h1>
+  <img src="logo.png" class="logo"><br>
+  <h1>Coco Mithas</h1>
   <p>Fresh Coconut Sweets</p>
 </header>
+
+<!-- 🔥 SLIDER -->
+<div class="slider">
+  <img id="slide" src="ladoo.png">
+</div>
 
 <div class="container">
 
 <!-- PRODUCT -->
 <div class="product">
+  <img src="ladoo.png">
   <h2>🥥 Coconut Laddoo</h2>
   <p>₹149 / 250g</p>
 
@@ -81,17 +108,29 @@ button {
   <button class="pay">Place Order</button>
 </form>
 
+<!-- SOCIAL -->
+<div class="social" style="text-align:center;">
+  <a href="https://wa.me/918303560658">
+    <img src="https://img.icons8.com/color/48/whatsapp.png">
+  </a>
+
+  <a href="https://www.instagram.com/coco_mithas">
+    <img src="https://img.icons8.com/color/48/instagram-new.png">
+  </a>
+</div>
+
 </div>
 
 <script>
 let cartQty = 0;
 let price = 149;
 
+// CART
 function addToCart() {
   let qty = document.getElementById("qty").value;
   cartQty = parseInt(qty);
 
-  let free = Math.floor(cartQty / 3); // Buy 3 Get 1
+  let free = Math.floor(cartQty / 3);
   let totalQty = cartQty + free;
   let total = cartQty * price;
 
@@ -101,9 +140,10 @@ function addToCart() {
   document.getElementById("total").innerHTML = "Total: ₹" + total;
 }
 
+// UPI
 function payUPI() {
   let total = cartQty * price;
-  if(total == 0) {
+  if(total == 0){
     alert("Add item first");
     return;
   }
@@ -112,6 +152,7 @@ function payUPI() {
     "upi://pay?pa=8303560658@ptsbi&pn=Coco%20Mithas&am=" + total + "&cu=INR";
 }
 
+// WHATSAPP
 function orderWhatsApp() {
   let name = document.getElementById("name").value;
   let phone = document.getElementById("phone").value;
@@ -131,6 +172,16 @@ function orderWhatsApp() {
 
   window.open("https://wa.me/918303560658?text=" + msg);
 }
+
+// 🔥 SLIDER SCRIPT
+let images = ["ladoo.png","ladoo2.png","ladoo3.png"];
+let i = 0;
+
+setInterval(()=>{
+  i = (i + 1) % images.length;
+  document.getElementById("slide").src = images[i];
+},2000);
+
 </script>
 
 </body>
