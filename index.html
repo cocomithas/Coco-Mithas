@@ -20,7 +20,6 @@ header {
   border-radius:50%;
 }
 
-/* 🔥 SLIDER */
 .slider img{
   width:100%;
   height:200px;
@@ -39,6 +38,14 @@ header {
 .product img {
   width:100%;
   border-radius:10px;
+  margin-bottom:10px;
+}
+
+.offer {
+  background:#ffeb3b;
+  padding:5px;
+  text-align:center;
+  font-weight:bold;
   margin-bottom:10px;
 }
 
@@ -71,22 +78,35 @@ button {
   <p>Fresh Coconut Sweets</p>
 </header>
 
-<!-- 🔥 SLIDER -->
+<!-- SLIDER -->
 <div class="slider">
   <img id="slide" src="ladoo.png">
 </div>
 
 <div class="container">
 
-<!-- PRODUCT -->
+<!-- PRODUCT 1 -->
 <div class="product">
   <img src="ladoo.png">
   <h2>🥥 Coconut Laddoo</h2>
   <p>₹149 / 250g</p>
 
-  <input type="number" id="qty" value="1" min="1">
+  <input type="number" id="qty1" value="1" min="1">
 
-  <button class="add" onclick="addToCart()">Add to Cart</button>
+  <button class="add" onclick="addSingle()">Add to Cart</button>
+</div>
+
+<!-- PRODUCT 2 OFFER -->
+<div class="product">
+  <div class="offer">🔥 Buy 3 Get 1 FREE 🔥</div>
+
+  <img src="ladoo2.png">
+  <h2>🥥 Offer Pack</h2>
+  <p>3 Box = ₹447 (1 FREE)</p>
+
+  <input type="number" id="qty2" value="1" min="1">
+
+  <button class="add" onclick="addOffer()">Add Offer Pack</button>
 </div>
 
 <!-- CART -->
@@ -122,34 +142,50 @@ button {
 </div>
 
 <script>
-let cartQty = 0;
-let price = 149;
+let totalAmount = 0;
+let cartText = "";
 
-// CART
-function addToCart() {
-  let qty = document.getElementById("qty").value;
-  cartQty = parseInt(qty);
+// SINGLE PRODUCT
+function addSingle() {
+  let qty = parseInt(document.getElementById("qty1").value);
+  let price = 149;
+  let free = Math.floor(qty / 3);
 
-  let free = Math.floor(cartQty / 3);
-  let totalQty = cartQty + free;
-  let total = cartQty * price;
+  let totalQty = qty + free;
+  let total = qty * price;
 
-  document.getElementById("cartItems").innerHTML =
-    "Items: " + cartQty + " + " + free + " FREE = " + totalQty;
+  totalAmount += total;
+  cartText += "Single: " + qty + " + " + free + " FREE\n";
 
-  document.getElementById("total").innerHTML = "Total: ₹" + total;
+  updateCart();
+}
+
+// OFFER PACK
+function addOffer() {
+  let qty = parseInt(document.getElementById("qty2").value);
+  let price = 447;
+
+  totalAmount += qty * price;
+  cartText += "Offer Pack x " + qty + "\n";
+
+  updateCart();
+}
+
+// UPDATE CART
+function updateCart() {
+  document.getElementById("cartItems").innerText = cartText;
+  document.getElementById("total").innerHTML = "Total: ₹" + totalAmount;
 }
 
 // UPI
 function payUPI() {
-  let total = cartQty * price;
-  if(total == 0){
+  if(totalAmount == 0){
     alert("Add item first");
     return;
   }
 
   window.location.href =
-    "upi://pay?pa=8303560658@ptsbi&pn=Coco%20Mithas&am=" + total + "&cu=INR";
+    "upi://pay?pa=8303560658@ptsbi&pn=Coco%20Mithas&am=" + totalAmount + "&cu=INR";
 }
 
 // WHATSAPP
@@ -158,22 +194,16 @@ function orderWhatsApp() {
   let phone = document.getElementById("phone").value;
   let address = document.getElementById("address").value;
 
-  let free = Math.floor(cartQty / 3);
-  let totalQty = cartQty + free;
-  let total = cartQty * price;
-
   let msg =
     "Order:%0A" +
-    "Coconut Laddoo: " + cartQty + "%0A" +
-    "Free: " + free + "%0A" +
-    "Total Qty: " + totalQty + "%0A" +
-    "Total: ₹" + total + "%0A%0A" +
+    cartText + "%0A" +
+    "Total: ₹" + totalAmount + "%0A%0A" +
     "Name: " + name + "%0APhone: " + phone + "%0AAddress: " + address;
 
   window.open("https://wa.me/918303560658?text=" + msg);
 }
 
-// 🔥 SLIDER SCRIPT
+// SLIDER
 let images = ["ladoo.png","ladoo2.png","ladoo3.png"];
 let i = 0;
 
