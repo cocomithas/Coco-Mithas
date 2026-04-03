@@ -1,136 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coco Mithas Pro</title>
+<title>Coco Mithas</title>
 
 <style>
-body { font-family: Arial; background:#f5f5f5; margin:0; }
-
-header {
-  background:#2e7d32;
-  color:white;
-  text-align:center;
-  padding:20px;
+body{margin:0;font-family:Arial;background:#f5fff7;}
+header{background:#0f5132;color:white;text-align:center;padding:15px;font-size:22px;}
+.container{padding:15px;}
+.card{
+background:white;
+padding:15px;
+margin-bottom:20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+text-align:center;
 }
-
-.container { padding:20px; }
-
-.product, .cart, form {
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
+img{width:100%;border-radius:10px;}
+.price{color:#198754;font-size:22px;font-weight:bold;}
+.btn{
+display:block;
+width:90%;
+margin:8px auto;
+padding:12px;
+border:none;
+border-radius:10px;
+color:white;
+background:#198754;
 }
-
-button {
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
+.btn:hover{background:#146c43;}
+input,textarea{
+width:90%;
+padding:10px;
+margin:5px;
+border-radius:8px;
+border:1px solid #ccc;
 }
-
-.add { background:#2e7d32; color:white; }
-.pay { background:#25D366; color:white; }
-
-.cart-item { margin:5px 0; }
-
-.total { font-weight:bold; font-size:18px; color:green; }
-
+.social button{margin:5px;}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🌴 Coco Mithas 🌴</h1>
-  <p>Fresh Coconut Sweets</p>
+🥥 Coco Mithas  
+<p>📸 @coco_mithas | 📱 8303560658</p>
 </header>
 
 <div class="container">
 
 <!-- PRODUCT -->
-<div class="product">
-  <h2>🥥 Coconut Laddoo</h2>
-  <p>₹149 / 250g</p>
+<div class="card">
+<img src="coco-laddoo.jpg">
+<h3>Coconut Laddoo (250g)</h3>
+<p class="price">₹149</p>
 
-  <input type="number" id="qty" value="1" min="1">
+<input id="qty" type="number" placeholder="Quantity">
 
-  <button class="add" onclick="addToCart()">Add to Cart</button>
+<button class="btn" onclick="buy()">Buy Now</button>
 </div>
 
-<!-- CART -->
-<div class="cart">
-  <h3>🛒 Cart</h3>
-  <div id="cartItems"></div>
-  <div class="total" id="total">Total: ₹0</div>
+<!-- COMBO -->
+<div class="card">
+<h3>🔥 Combo (3 Pack)</h3>
+<p class="price">₹449</p>
 
-  <button class="pay" onclick="payUPI()">💳 Pay via UPI</button>
-  <button class="add" onclick="orderWhatsApp()">📲 Order on WhatsApp</button>
+<button class="btn" onclick="combo()">Buy Combo</button>
 </div>
 
 <!-- FORM -->
-<form onsubmit="orderWhatsApp(); return false;">
-  <h3>📦 Delivery Details</h3>
-  <input type="text" id="name" placeholder="Name" required>
-  <input type="text" id="phone" placeholder="Phone" required>
-  <textarea id="address" placeholder="Address" required></textarea>
-  <button class="pay">Place Order</button>
-</form>
+<div class="card">
+<h3>📦 Delivery Details</h3>
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<textarea id="address" placeholder="Address"></textarea>
+</div>
+
+<!-- TRACK -->
+<div class="card">
+<h3>🚚 Track Order</h3>
+<input id="trackId" placeholder="Enter Order ID">
+<button class="btn" onclick="track()">Track</button>
+<p id="status"></p>
+</div>
+
+<!-- REVIEW -->
+<div class="card">
+<h3>⭐ Reviews</h3>
+<p>“Bahut tasty laddoo 😍”</p>
+<p>“Best quality 🔥”</p>
+
+<input placeholder="Write review">
+<button class="btn">Submit</button>
+</div>
+
+<!-- SOCIAL -->
+<div class="card social">
+<h3>📲 Connect</h3>
+
+<a href="https://wa.me/918303560658">
+<button class="btn" style="background:#25D366;">WhatsApp</button>
+</a>
+
+<a href="https://www.instagram.com/coco_mithas" target="_blank">
+<button class="btn" style="background:#e1306c;">Instagram</button>
+</a>
+
+</div>
 
 </div>
 
 <script>
-let cartQty = 0;
-let price = 149;
 
-function addToCart() {
-  let qty = document.getElementById("qty").value;
-  cartQty = parseInt(qty);
-
-  let free = Math.floor(cartQty / 3); // Buy 3 Get 1
-  let totalQty = cartQty + free;
-  let total = cartQty * price;
-
-  document.getElementById("cartItems").innerHTML =
-    "Items: " + cartQty + " + " + free + " FREE = " + totalQty;
-
-  document.getElementById("total").innerHTML = "Total: ₹" + total;
+function id(){
+return "CM"+Math.floor(Math.random()*10000);
 }
 
-function payUPI() {
-  let total = cartQty * price;
-  if(total == 0) {
-    alert("Add item first");
-    return;
-  }
+function buy(){
+let q=document.getElementById("qty").value;
+if(!q){alert("Enter qty");return;}
 
-  window.location.href =
-    "upi://pay?pa=8303560658@ptsbi&pn=Coco%20Mithas&am=" + total + "&cu=INR";
+let total=(149*q)+40;
+let order=id();
+
+alert("Order ID:"+order+" Total ₹"+total);
+
+window.location.href="upi://pay?pa=8303560658@ptsbi&pn=CocoMithas&am="+total+"&cu=INR";
+
+window.open("https://wa.me/918303560658?text=Order ID:"+order+" Qty:"+q+" Total:"+total);
 }
 
-function orderWhatsApp() {
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let address = document.getElementById("address").value;
+function combo(){
+let total=449+40;
+let order=id();
 
-  let free = Math.floor(cartQty / 3);
-  let totalQty = cartQty + free;
-  let total = cartQty * price;
+alert("Order ID:"+order+" Total ₹"+total);
 
-  let msg =
-    "Order:%0A" +
-    "Coconut Laddoo: " + cartQty + "%0A" +
-    "Free: " + free + "%0A" +
-    "Total Qty: " + totalQty + "%0A" +
-    "Total: ₹" + total + "%0A%0A" +
-    "Name: " + name + "%0APhone: " + phone + "%0AAddress: " + address;
+window.location.href="upi://pay?pa=8303560658@ptsbi&pn=CocoMithas&am="+total+"&cu=INR";
 
-  window.open("https://wa.me/918303560658?text=" + msg);
+window.open("https://wa.me/918303560658?text=Combo Order ID:"+order+" Total:"+total);
 }
+
+function track(){
+let id=document.getElementById("trackId").value;
+if(id){
+document.getElementById("status").innerHTML="📦 "+id+" is Out for Delivery 🚚";
+}
+}
+
 </script>
 
 </body>
