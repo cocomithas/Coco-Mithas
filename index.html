@@ -1,200 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Coco Mithas</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coco Mithas Pro</title>
 
 <style>
-body{font-family:Arial;margin:0;background:#f2fff2;text-align:center;}
+body { font-family: Arial; background:#f5f5f5; margin:0; }
 
-.header{background:green;color:white;padding:15px;}
-.logo{width:90px;border-radius:50%;}
-
-.products{display:flex;flex-wrap:wrap;justify-content:center;}
-
-.card{
-background:white;margin:10px;padding:15px;
-border-radius:15px;width:200px;
-box-shadow:0 0 10px #ccc;
+header {
+  background:#2e7d32;
+  color:white;
+  text-align:center;
+  padding:20px;
 }
 
-.card img{width:100%;border-radius:10px;}
+.container { padding:20px; }
 
-.btn{
-background:green;color:white;
-padding:10px;border:none;
-border-radius:8px;margin:5px;
-cursor:pointer;
+.product, .cart, form {
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
 }
 
-input{
-padding:10px;margin:5px;width:80%;
-border-radius:8px;border:1px solid #ccc;
+button {
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-.cart{
-background:#d4ffd4;
-margin:15px;padding:15px;
-border-radius:10px;
-}
+.add { background:#2e7d32; color:white; }
+.pay { background:#25D366; color:white; }
 
-.track{
-background:#eaffea;
-margin:15px;padding:10px;
-border-radius:10px;
-}
+.cart-item { margin:5px 0; }
+
+.total { font-weight:bold; font-size:18px; color:green; }
+
 </style>
-
-<script>
-let cart=[];
-
-// Add to cart
-function addToCart(name,price){
-cart.push({name,price});
-alert(name+" added");
-}
-
-// Generate Order ID
-function getOrderId(){
-return "CM"+Math.floor(Math.random()*1000000);
-}
-
-// Checkout WhatsApp
-function checkout(){
-let name=document.getElementById("name").value;
-let address=document.getElementById("address").value;
-
-if(name==""||address==""){
-alert("Fill details");return;
-}
-
-let orderId=getOrderId();
-let total=0;
-let items="";
-
-cart.forEach(i=>{
-items+=i.name+" ₹"+i.price+"%0A";
-total+=i.price;
-});
-
-total+=40; // delivery
-
-let msg="Order ID: "+orderId+
-"%0AName: "+name+
-"%0AAddress: "+address+
-"%0AItems:%0A"+items+
-"%0ATotal: ₹"+total+
-"%0APayment: WhatsApp Confirm";
-
-window.open("https://wa.me/918303560658?text="+msg);
-}
-
-// UPI Payment
-function payNow(){
-let total=149+40;
-let orderId=getOrderId();
-
-window.location.href=
-"upi://pay?pa=8303560658@ptsbi&pn=CocoMithas&am="+total+"&tn=Order "+orderId;
-}
-
-// COD
-function cod(){
-let name=document.getElementById("name").value;
-let address=document.getElementById("address").value;
-
-if(name==""||address==""){
-alert("Fill details");return;
-}
-
-let orderId=getOrderId();
-let total=149+40+20;
-
-let msg="Order ID: "+orderId+
-"%0AName: "+name+
-"%0AAddress: "+address+
-"%0ATotal: ₹"+total+
-"%0APayment: COD";
-
-window.open("https://wa.me/918303560658?text="+msg);
-}
-
-// Tracking
-function track(){
-let id=document.getElementById("trackId").value;
-if(id==""){alert("Enter ID");return;}
-
-document.getElementById("status").innerHTML=
-"📦 "+id+" is Out for Delivery 🚚";
-}
-</script>
-
 </head>
 
 <body>
 
-<div class="header">
-<img src="images/logo.png" class="logo"><br>
-<h2>Coco Mithas</h2>
-<p>Har bite me ghar ki mithaas</p>
+<header>
+  <h1>🌴 Coco Mithas 🌴</h1>
+  <p>Fresh Coconut Sweets</p>
+</header>
+
+<div class="container">
+
+<!-- PRODUCT -->
+<div class="product">
+  <h2>🥥 Coconut Laddoo</h2>
+  <p>₹149 / 250g</p>
+
+  <input type="number" id="qty" value="1" min="1">
+
+  <button class="add" onclick="addToCart()">Add to Cart</button>
 </div>
 
-<!-- Products -->
-<div class="products">
-
-<div class="card">
-<img src="images/ladoo1.png">
-<h3>Coconut Laddoo</h3>
-<p>₹149 / 250g</p>
-<button class="btn" onclick="addToCart('Laddoo',149)">Add to Cart</button>
-</div>
-
-<div class="card">
-<img src="images/ladoo2.png">
-<h3>Combo (3 Pack)</h3>
-<p>₹449</p>
-<button class="btn" onclick="addToCart('Combo',449)">Add to Cart</button>
-</div>
-
-</div>
-
-<!-- Checkout -->
+<!-- CART -->
 <div class="cart">
-<h3>Checkout</h3>
+  <h3>🛒 Cart</h3>
+  <div id="cartItems"></div>
+  <div class="total" id="total">Total: ₹0</div>
 
-<input id="name" placeholder="Name"><br>
-<input id="address" placeholder="Address"><br>
+  <button class="pay" onclick="payUPI()">💳 Pay via UPI</button>
+  <button class="add" onclick="orderWhatsApp()">📲 Order on WhatsApp</button>
+</div>
 
-<p>🚚 Delivery Charge ₹40</p>
-<p style="color:red;">COD Extra ₹20</p>
-
-<button class="btn" onclick="checkout()">Order on WhatsApp</button>
-<button class="btn" onclick="payNow()">Pay Now (UPI)</button>
-<button class="btn" onclick="cod()">Cash on Delivery</button>
+<!-- FORM -->
+<form onsubmit="orderWhatsApp(); return false;">
+  <h3>📦 Delivery Details</h3>
+  <input type="text" id="name" placeholder="Name" required>
+  <input type="text" id="phone" placeholder="Phone" required>
+  <textarea id="address" placeholder="Address" required></textarea>
+  <button class="pay">Place Order</button>
+</form>
 
 </div>
 
-<!-- Tracking -->
-<div class="track">
-<h3>Track Order</h3>
-<input id="trackId" placeholder="Order ID"><br>
-<button class="btn" onclick="track()">Track</button>
-<p id="status"></p>
-</div>
+<script>
+let cartQty = 0;
+let price = 149;
 
-<!-- Social -->
-<div>
-<h3>Connect</h3>
+function addToCart() {
+  let qty = document.getElementById("qty").value;
+  cartQty = parseInt(qty);
 
-<a href="https://wa.me/918303560658">
-<img src="https://img.icons8.com/color/48/whatsapp.png">
-</a>
+  let free = Math.floor(cartQty / 3); // Buy 3 Get 1
+  let totalQty = cartQty + free;
+  let total = cartQty * price;
 
-<a href="https://www.instagram.com/coco_mithas">
-<img src="https://img.icons8.com/color/48/instagram-new.png">
-</a>
+  document.getElementById("cartItems").innerHTML =
+    "Items: " + cartQty + " + " + free + " FREE = " + totalQty;
 
-</div>
+  document.getElementById("total").innerHTML = "Total: ₹" + total;
+}
+
+function payUPI() {
+  let total = cartQty * price;
+  if(total == 0) {
+    alert("Add item first");
+    return;
+  }
+
+  window.location.href =
+    "upi://pay?pa=8303560658@ptsbi&pn=Coco%20Mithas&am=" + total + "&cu=INR";
+}
+
+function orderWhatsApp() {
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+
+  let free = Math.floor(cartQty / 3);
+  let totalQty = cartQty + free;
+  let total = cartQty * price;
+
+  let msg =
+    "Order:%0A" +
+    "Coconut Laddoo: " + cartQty + "%0A" +
+    "Free: " + free + "%0A" +
+    "Total Qty: " + totalQty + "%0A" +
+    "Total: ₹" + total + "%0A%0A" +
+    "Name: " + name + "%0APhone: " + phone + "%0AAddress: " + address;
+
+  window.open("https://wa.me/918303560658?text=" + msg);
+}
+</script>
 
 </body>
 </html>
