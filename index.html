@@ -1,4 +1,4 @@
-[10:10, 06/04/2026] Mukul Baby 🫂😚: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,109 +6,145 @@
 <title>Coco Mithas</title>
 
 <style>
-body {
-  font-family: Arial;
-  margin:0;
-  background:#f5fff5;
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background:#f1f8e9;
 }
 
-header {
-  background:#2e7d32;
-  color:white;
-  text-align:center;
-  padding:15px;
-}
-
-.products {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:20px;
-  padding:20px;
-}
-
-.card {
-  background:white;
-  width:250px;
-  border-radius:15px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
-  overflow:hidden;
-  text-align:center;
-  position:relative;
-}
-
-.card img {
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
-
-.badge {
-  position:absolute;
-  top:10px;
-  left:10px;
-  background:gold;
-  padding:5px 10px;
-  border-radius:…
-[10:16, 06/04/2026] Mukul Baby 🫂😚: <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coco Mithas</title>
-
-<style>
-body {font-family:Arial;margin:0;background:#f5fff5;}
-
+/* HEADER */
 header{
-background:#2e7d32;
+background:linear-gradient(45deg,#2e7d32,#66bb6a);
 color:white;
 text-align:center;
-padding:15px;
+padding:20px;
 }
 
-.logo{width:80px;border-radius:50%;}
+.logo{
+width:90px;
+border-radius:50%;
+border:3px solid white;
+}
 
+/* SLIDER */
 .slider img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+/* PRODUCTS */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+position:relative;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
 width:100%;
 height:200px;
 object-fit:cover;
 }
 
-.container{padding:20px;}
-
-.product,.cart,form{
-background:white;
-padding:15px;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-.product img{width:100%;border-radius:10px;}
-
+/* BADGE */
 .badge{
-background:gold;
+position:absolute;
+top:10px;
+left:10px;
+background:#ffeb3b;
 padding:5px 10px;
 border-radius:20px;
 font-size:12px;
+font-weight:bold;
 }
 
+/* CONTENT */
+.content{
+padding:15px;
+text-align:center;
+}
+
+.price{
+color:#2e7d32;
+font-size:20px;
+font-weight:bold;
+}
+
+.old{
+text-decoration:line-through;
+color:gray;
+font-size:14px;
+}
+
+/* BUTTON */
 button{
-width:100%;
-padding:10px;
-margin-top:8px;
+background:#2e7d32;
+color:white;
 border:none;
-border-radius:6px;
+padding:10px;
+width:100%;
+border-radius:10px;
+margin-top:10px;
 cursor:pointer;
 }
 
-.add{background:#2e7d32;color:white;}
-.pay{background:#25D366;color:white;}
-.cod{background:#ff9800;color:white;}
+button:hover{
+background:#1b5e20;
+}
 
-.total{font-weight:bold;color:green;}
+/* CART */
+.cart{
+background:white;
+margin:20px;
+padding:15px;
+border-radius:15px;
+}
 
-.social img{width:40px;margin:10px;}
+.total{
+font-weight:bold;
+color:green;
+}
+
+/* FORM */
+form{
+background:white;
+margin:20px;
+padding:15px;
+border-radius:15px;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* SOCIAL */
+.social{
+text-align:center;
+}
+
+.social img{
+width:40px;
+margin:10px;
+}
+
 </style>
 </head>
 
@@ -116,7 +152,7 @@ cursor:pointer;
 
 <header>
 <img src="coco.jpeg" class="logo">
-<h1>Coco Mithas</h1>
+<h1>🍬 Coco Mithas</h1>
 <p>Fresh Coconut Sweets</p>
 </header>
 
@@ -125,50 +161,55 @@ cursor:pointer;
 <img id="slide" src="coco.jpeg">
 </div>
 
-<div class="container">
+<!-- PRODUCTS -->
+<div class="products">
 
-<!-- PRODUCT 1 -->
-<div class="product">
-<div class="badge">BEST VALUE</div>
+<div class="card">
+<div class="badge">🔥 BEST SELLER</div>
 <img src="coco.jpeg">
-<h2>Premium Sweet Box</h2>
-<p>₹299 <del>₹399</del></p>
-<input type="number" id="qty1" value="1" min="1">
-<button class="add" onclick="addToCart(299,'Premium Sweet Box',qty1.value)">Add to Cart</button>
+<div class="content">
+<h3>Premium Sweet Box</h3>
+<p class="price">₹299 <span class="old">₹399</span></p>
+<input type="number" id="q1" value="1" min="1">
+<button onclick="addToCart('Premium Sweet Box',299,q1.value)">Add to Cart</button>
+</div>
 </div>
 
-<!-- PRODUCT 2 -->
-<div class="product">
-<div class="badge" style="background:lightgreen;">SIGNATURE</div>
+<div class="card">
+<div class="badge" style="background:#a5d6a7;">🌿 PURE</div>
 <img src="cocomithas.jpeg">
-<h2>Special Laddu</h2>
-<p>₹70 / 250g</p>
-<input type="number" id="qty2" value="1" min="1">
-<button class="add" onclick="addToCart(70,'Special Laddu',qty2.value)">Add to Cart</button>
+<div class="content">
+<h3>Special Laddu</h3>
+<p class="price">₹70 / 250g</p>
+<input type="number" id="q2" value="1" min="1">
+<button onclick="addToCart('Special Laddu',70,q2.value)">Add to Cart</button>
+</div>
+</div>
+
 </div>
 
 <!-- CART -->
 <div class="cart">
 <h3>🛒 Cart</h3>
-<div id="cartItems"></div>
+<div id="items"></div>
 <div class="total" id="total">Total: ₹0</div>
 
-<button class="pay" onclick="payUPI()">💳 Pay via UPI</button>
-<button class="cod" onclick="codOrder()">📦 Cash on Delivery</button>
-<button class="add" onclick="orderWhatsApp()">📲 WhatsApp Order</button>
+<button onclick="payUPI()">💳 Pay via UPI</button>
+<button onclick="cod()">📦 Cash on Delivery</button>
+<button onclick="whatsapp()">📲 Order on WhatsApp</button>
 </div>
 
 <!-- FORM -->
-<form onsubmit="orderWhatsApp();return false;">
+<form onsubmit="whatsapp();return false;">
 <h3>📦 Delivery Details</h3>
-<input type="text" id="name" placeholder="Name" required><br><br>
-<input type="text" id="phone" placeholder="Phone" required><br><br>
-<textarea id="address" placeholder="Address" required></textarea><br>
-<button class="pay">Place Order</button>
+<input type="text" id="name" placeholder="Name" required>
+<input type="text" id="phone" placeholder="Phone" required>
+<textarea id="address" placeholder="Address" required></textarea>
+<button>Place Order</button>
 </form>
 
 <!-- SOCIAL -->
-<div class="social" style="text-align:center;">
+<div class="social">
 <a href="https://wa.me/918303560658">
 <img src="https://img.icons8.com/color/48/whatsapp.png">
 </a>
@@ -178,49 +219,43 @@ cursor:pointer;
 </a>
 </div>
 
-</div>
-
 <script>
 
-let cart = [];
-let total = 0;
+let cart=[];
+let total=0;
 
-// ADD TO CART
-function addToCart(price,name,qty){
+// ADD
+function addToCart(name,price,qty){
 qty=parseInt(qty);
 let free=Math.floor(qty/3);
-let totalQty=qty+free;
-
 cart.push(name+" x "+qty+" + "+free+" FREE");
-
 total+=price*qty;
 
-document.getElementById("cartItems").innerHTML=cart.join("<br>");
+document.getElementById("items").innerHTML=cart.join("<br>");
 document.getElementById("total").innerHTML="Total: ₹"+total;
 }
 
-// UPI PAYMENT
+// UPI
 function payUPI(){
-if(total==0){alert("Add items first");return;}
-
+if(total==0){alert("Add items");return;}
 window.location.href="upi://pay?pa=8303560658@upi&pn=Coco Mithas&am="+total+"&cu=INR";
 }
 
 // COD
-function codOrder(){
-alert("Order placed with Cash on Delivery ✅");
-orderWhatsApp();
+function cod(){
+alert("Order placed with COD ✅");
+whatsapp();
 }
 
 // WHATSAPP
-function orderWhatsApp(){
+function whatsapp(){
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let address=document.getElementById("address").value;
 
 let msg="Order:%0A"+cart.join("%0A")+
 "%0A%0ATotal: ₹"+total+
-"%0A%0AName: "+name+
+"%0AName: "+name+
 "%0APhone: "+phone+
 "%0AAddress: "+address;
 
@@ -228,12 +263,11 @@ window.open("https://wa.me/918303560658?text="+msg);
 }
 
 // SLIDER
-let images=["coco.jpeg","cocomithas.jpeg"];
+let imgs=["coco.jpeg","cocomithas.jpeg"];
 let i=0;
-
 setInterval(()=>{
-i=(i+1)%images.length;
-document.getElementById("slide").src=images[i];
+i=(i+1)%imgs.length;
+document.getElementById("slide").src=imgs[i];
 },2000);
 
 </script>
