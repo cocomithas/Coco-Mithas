@@ -3,60 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CocoMithas</title>
+<title>CocoMithaas</title>
 <style>
 body{margin:0;font-family:Georgia,serif;background:#f5f5f0;color:#0b3d2e;}
 header{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:#fff;}
-header h1{margin:0;}
 nav a{margin:0 10px;text-decoration:none;color:#0b3d2e;}
-.hero{text-align:center;padding:40px 20px;}
-.hero img{width:120px;border-radius:50%;}
-.hero h2{font-size:50px;margin:10px 0;}
-.banner{background:#0b3d2e;color:#fff;padding:10px;text-align:center;}
-.section{padding:40px;}
-.products{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
-.card{background:#fff;border-radius:10px;padding:20px;width:280px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.card img{width:100%;border-radius:10px;height:180px;object-fit:cover;}
-button{background:#0b3d2e;color:#fff;padding:10px;border:none;border-radius:5px;cursor:pointer;margin-top:5px;width:100%;}
-#cartBox{position:fixed;right:10px;top:10px;background:#fff;padding:10px;border-radius:10px;border:1px solid #ccc;}
-footer{text-align:center;padding:20px;background:#222;color:#fff;}
+.products{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:40px;}
+.card{background:#fff;border-radius:10px;padding:20px;width:280px;box-shadow:0 2px 8px rgba(0,0,0,0.1);text-align:center;}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:10px;}
+button{background:#0b3d2e;color:#fff;padding:10px;border:none;border-radius:5px;margin-top:5px;width:100%;cursor:pointer;}
 </style>
 </head>
 <body>
 
-<header>
-<h1>COCO MITHAS</h1>
-<nav>
-<a href="#">Collections</a>
-<a href="#">Our Story</a>
-<a href="#">Contact</a>
-</nav>
-</header>
+<h1 style="text-align:center;">COCO MITHAAS</h1>
 
-<div id="cartBox">
-🛒 Cart: <span id="cartCount">0</span><br>
-<button onclick="checkout()">Order Now</button>
-</div>
-
-<div class="hero">
-<img src="coco.jpeg">
-<h2>COCO MITHAS</h2>
-<p>HAR BITE ME GHAR KI MITHAAS</p>
-</div>
-
-<div class="banner">
-10% OFF | Code: COCO10 | Free Shipping over ₹799
-</div>
-
-<div class="section">
-<h2>Handcrafted Perfection</h2>
 <div class="products">
 
 <div class="card">
 <img src="coco.jpeg">
 <h3>Coco Ladoo</h3>
 <p><b>₹149 / 250g</b></p>
-<button onclick="addToCart('Coco Ladoo',149)">Add to Cart</button>
+<button onclick="payNow('Coco Ladoo',149)">💳 Pay & Order</button>
 </div>
 
 <div class="card">
@@ -64,10 +32,9 @@ footer{text-align:center;padding:20px;background:#222;color:#fff;}
 <h3>Family Pack</h3>
 <p><b>₹449</b></p>
 <p>Buy 3 Get 1 Free 🎉</p>
-<button onclick="addToCart('Family Pack',449)">Add to Cart</button>
+<button onclick="payNow('Family Pack',449)">💳 Pay & Order</button>
 </div>
 
-</div>
 </div>
 
 <div style="text-align:center;">
@@ -78,23 +45,8 @@ footer{text-align:center;padding:20px;background:#222;color:#fff;}
 <button onclick="saveCustomer()">Save Details</button>
 </div>
 
-<div style="text-align:center; margin:20px;">
-<button onclick="payUPI()">💳 Pay Now</button>
-<button onclick="downloadBill()">⬇️ Download Bill</button>
-</div>
-
-<footer>
-<p>© CocoMithaas</p>
-</footer>
-
 <script>
-let cart=[];
 let customer={};
-
-function addToCart(item,price){
-cart.push({item,price});
-document.getElementById('cartCount').innerText=cart.length;
-}
 
 function saveCustomer(){
 customer.name=document.getElementById('name').value;
@@ -103,27 +55,15 @@ customer.address=document.getElementById('address').value;
 alert('Details Saved');
 }
 
-function checkout(){
-if(cart.length==0){alert('Cart empty');return;}
-let msg="Order Details:\n";
-cart.forEach((c,i)=>{msg+=`${i+1}. ${c.item} ₹${c.price}\n`;});
-msg+=`\nName: ${customer.name}\nPhone: ${customer.phone}\nAddress: ${customer.address}`;
+function payNow(item,amount){
+// Open UPI Payment
+window.location.href=`upi://pay?pa=yourupi@upi&pn=CocoMithaas&am=${amount}`;
+
+// After payment send WhatsApp
+setTimeout(()=>{
+let msg=`Payment Done ✅\nProduct: ${item}\nAmount: ₹${amount}\nName: ${customer.name}\nPhone: ${customer.phone}\nAddress: ${customer.address}`;
 window.open(`https://wa.me/918303560658?text=${encodeURIComponent(msg)}`);
-}
-
-function payUPI(){
-window.location.href="upi://pay?pa=yourupi@upi&pn=CocoMithaas";
-}
-
-function downloadBill(){
-let text="CocoMithaas Bill\n";
-cart.forEach((c,i)=>{text+=`${i+1}. ${c.item} ₹${c.price}\n`;});
-text+=`\nName: ${customer.name}\nPhone: ${customer.phone}\nAddress: ${customer.address}`;
-let blob=new Blob([text]);
-let a=document.createElement('a');
-a.href=URL.createObjectURL(blob);
-a.download='bill.txt';
-a.click();
+},3000);
 }
 </script>
 
