@@ -4,19 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CocoMithaas</title>
+
 <style>
 body{margin:0;font-family:Georgia,serif;background:#f5f5f0;color:#0b3d2e;}
-header{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:#fff;}
-nav a{margin:0 10px;text-decoration:none;color:#0b3d2e;}
+header{text-align:center;background:#0b3d2e;color:#fff;padding:10px;}
 .products{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:40px;}
 .card{background:#fff;border-radius:10px;padding:20px;width:280px;box-shadow:0 2px 8px rgba(0,0,0,0.1);text-align:center;}
 .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;}
 button{background:#0b3d2e;color:#fff;padding:10px;border:none;border-radius:5px;margin-top:5px;width:100%;cursor:pointer;}
+input,textarea{padding:8px;margin:5px;}
+.offer-bar{background:#0b3d2e;color:#fff;overflow:hidden;}
+.offer-text{white-space:nowrap;display:inline-block;padding:10px;animation:scroll 10s linear infinite;}
+@keyframes scroll{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
 </style>
+
 </head>
 <body>
 
-<h1 style="text-align:center;">COCO MITHAAS</h1>
+<header>
+<h1>COCO MITHAAS</h1>
+</header>
+
+<div class="offer-bar">
+<div class="offer-text">🎉 10% OFF FIRST ORDER | CODE: COCO10 | FREE SHIPPING</div>
+</div>
 
 <div class="products">
 
@@ -42,27 +53,75 @@ button{background:#0b3d2e;color:#fff;padding:10px;border:none;border-radius:5px;
 <input id="name" placeholder="Name"><br>
 <input id="phone" placeholder="Phone"><br>
 <textarea id="address" placeholder="Address"></textarea><br>
+
+<h3>🎁 Coupon</h3>
+<input id="coupon" placeholder="Enter Coupon">
+<button onclick="applyCoupon()">Apply</button>
+<p id="msg"></p>
+
 <button onclick="saveCustomer()">Save Details</button>
 </div>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 <script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 let customer={};
+let discount=0;
 
 function saveCustomer(){
-customer.name=document.getElementById('name').value;
-customer.phone=document.getElementById('phone').value;
-customer.address=document.getElementById('address').value;
-alert('Details Saved');
+customer.name=name.value;
+customer.phone=phone.value;
+customer.address=address.value;
+alert("Saved");
+}
+
+async function applyCoupon(){
+let code=coupon.value;
+let phoneNo=phone.value;
+
+if(!phoneNo){alert("Enter phone first");return;}
+
+let doc=await db.collection("coupons").doc(phoneNo).get();
+
+if(doc.exists){
+msg.innerText="❌ Already used";
+discount=0;
+}
+else if(code==="COCO10"){
+discount=0.10;
+msg.innerText="✅ Applied";
+
+await db.collection("coupons").doc(phoneNo).set({used:true});
+}
+else{
+msg.innerText="❌ Invalid";
+discount=0;
+}
 }
 
 function payNow(item,amount){
-// Open UPI Payment
-window.location.href=`upi://pay?pa=yourupi@upi&pn=CocoMithaas&am=${amount}`;
+if(!customer.name||!customer.phone||!customer.address){
+alert("Fill details first");return;
+}
 
-// After payment send WhatsApp
+let finalAmount=amount-(amount*discount);
+
+window.location.href=`upi://pay?pa=yourupi@upi&pn=CocoMithaas&am=${finalAmount}`;
+
 setTimeout(()=>{
-let msg=`Payment Done ✅\nProduct: ${item}\nAmount: ₹${amount}\nName: ${customer.name}\nPhone: ${customer.phone}\nAddress: ${customer.address}`;
-window.open(`https://wa.me/918303560658?text=${encodeURIComponent(msg)}`);
+let msgText=`Payment Done ✅\n${item}\n₹${finalAmount}\n${customer.name}\n${customer.phone}\n${customer.address}`;
+window.open(`https://wa.me/918303560658?text=${encodeURIComponent(msgText)}`);
 },3000);
 }
 </script>
