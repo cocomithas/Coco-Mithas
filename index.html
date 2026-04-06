@@ -18,8 +18,7 @@ nav a{margin:0 10px;text-decoration:none;color:#0b3d2e;}
 .card{background:#fff;border-radius:10px;padding:20px;width:280px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
 .card img{width:100%;border-radius:10px;height:180px;object-fit:cover;}
 button{background:#0b3d2e;color:#fff;padding:10px;border:none;border-radius:5px;cursor:pointer;margin-top:5px;width:100%;}
-form{text-align:center;margin:30px;}
-input,textarea{width:250px;padding:8px;margin:5px;}
+#cartBox{position:fixed;right:10px;top:10px;background:#fff;padding:10px;border-radius:10px;border:1px solid #ccc;}
 footer{text-align:center;padding:20px;background:#222;color:#fff;}
 </style>
 </head>
@@ -30,19 +29,23 @@ footer{text-align:center;padding:20px;background:#222;color:#fff;}
 <nav>
 <a href="#">Collections</a>
 <a href="#">Our Story</a>
-<a href="#">Gifting</a>
 <a href="#">Contact</a>
 </nav>
 </header>
 
+<div id="cartBox">
+🛒 Cart: <span id="cartCount">0</span><br>
+<button onclick="checkout()">Order Now</button>
+</div>
+
 <div class="hero">
-<img src="coco.jpeg" alt="logo">
+<img src="coco.jpeg">
 <h2>COCO MITHAAS</h2>
-<p>The Botanical Confectioner</p>
+<p>HAR BITE ME GHAR KI MITHAAS</p>
 </div>
 
 <div class="banner">
-10% OFF | Code: COCO10 | Free Shipping over ₹999
+10% OFF | Code: COCO10 | Free Shipping over ₹799
 </div>
 
 <div class="section">
@@ -52,31 +55,31 @@ footer{text-align:center;padding:20px;background:#222;color:#fff;}
 <div class="card">
 <img src="coco.jpeg">
 <h3>Coco Ladoo</h3>
-<p>₹149</p>
+<p><b>₹149 / 250g</b></p>
 <button onclick="addToCart('Coco Ladoo',149)">Add to Cart</button>
-<button onclick="orderWhatsApp('Coco Ladoo')">Order</button>
 </div>
 
 <div class="card">
 <img src="coco.jpeg">
 <h3>Family Pack</h3>
-<p>₹449 (Buy 3 Get 1 Free)</p>
+<p><b>₹449</b></p>
+<p>Buy 3 Get 1 Free 🎉</p>
 <button onclick="addToCart('Family Pack',449)">Add to Cart</button>
-<button onclick="orderWhatsApp('Family Pack')">Order</button>
 </div>
 
 </div>
 </div>
-
-<form>
-<h2>Customer Details</h2>
-<input id="name" placeholder="Name"><br>
-<textarea id="address" placeholder="Address"></textarea><br>
-<button type="button" onclick="saveCustomer()">Save</button>
-</form>
 
 <div style="text-align:center;">
-<button onclick="payUPI()">💰 Pay via UPI</button>
+<h2>Customer Details</h2>
+<input id="name" placeholder="Name"><br>
+<input id="phone" placeholder="Phone"><br>
+<textarea id="address" placeholder="Address"></textarea><br>
+<button onclick="saveCustomer()">Save Details</button>
+</div>
+
+<div style="text-align:center; margin:20px;">
+<button onclick="payUPI()">💳 Pay Now</button>
 <button onclick="downloadBill()">⬇️ Download Bill</button>
 </div>
 
@@ -86,34 +89,36 @@ footer{text-align:center;padding:20px;background:#222;color:#fff;}
 
 <script>
 let cart=[];
-let customer={name:'',address:''};
+let customer={};
 
 function addToCart(item,price){
 cart.push({item,price});
-alert(item+" added");
+document.getElementById('cartCount').innerText=cart.length;
 }
 
 function saveCustomer(){
 customer.name=document.getElementById('name').value;
+customer.phone=document.getElementById('phone').value;
 customer.address=document.getElementById('address').value;
-alert('Saved');
+alert('Details Saved');
 }
 
-function orderWhatsApp(item){
-let msg=`Order: ${item}\nName: ${customer.name}\nAddress: ${customer.address}`;
+function checkout(){
+if(cart.length==0){alert('Cart empty');return;}
+let msg="Order Details:\n";
+cart.forEach((c,i)=>{msg+=`${i+1}. ${c.item} ₹${c.price}\n`;});
+msg+=`\nName: ${customer.name}\nPhone: ${customer.phone}\nAddress: ${customer.address}`;
 window.open(`https://wa.me/918303560658?text=${encodeURIComponent(msg)}`);
 }
 
 function payUPI(){
-window.location.href="upi://pay?pa=yourupi@upi&pn=CocoMithaas&am=100";
+window.location.href="upi://pay?pa=yourupi@upi&pn=CocoMithaas";
 }
 
 function downloadBill(){
 let text="CocoMithaas Bill\n";
-text+=`Name: ${customer.name}\nAddress: ${customer.address}\n`;
-let total=0;
-cart.forEach((c,i)=>{text+=`${i+1}. ${c.item} ₹${c.price}\n`; total+=c.price;});
-text+=`Total ₹${total}`;
+cart.forEach((c,i)=>{text+=`${i+1}. ${c.item} ₹${c.price}\n`;});
+text+=`\nName: ${customer.name}\nPhone: ${customer.phone}\nAddress: ${customer.address}`;
 let blob=new Blob([text]);
 let a=document.createElement('a');
 a.href=URL.createObjectURL(blob);
