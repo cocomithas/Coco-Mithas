@@ -1,278 +1,166 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COCO MITHAAS</title>
 
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>COCO MITHAS | GHAR JAISA MATHAS </title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "surface-tint": "#2a6b2c",
-                    "surface-container-highest": "#e3e3dc",
-                    "on-tertiary-fixed-variant": "#574500",
-                    "surface-container-high": "#e9e8e2",
-                    "outline-variant": "#bfc9c4",
-                    "outline": "#707975",
-                    "tertiary-container": "#cca730",
-                    "on-surface": "#1b1c18",
-                    "primary-container": "#064f13",
-                    "inverse-primary": "#91d78a",
-                    "tertiary-fixed-dim": "#e9c349",
-                    "error": "#ba1a1a",
-                    "on-secondary-container": "#00731e",
-                    "surface-bright": "#fafaf3",
-                    "on-primary-container": "#7cc176",
-                    "inverse-surface": "#30312c",
-                    "secondary-fixed": "#94f990",
-                    "on-error-container": "#93000a",
-                    "on-tertiary": "#ffffff",
-                    "surface-container-low": "#f5f4ed",
-                    "on-primary": "#ffffff",
-                    "surface-container-lowest": "#ffffff",
-                    "on-secondary": "#ffffff",
-                    "primary-fixed": "#acf4a4",
-                    "primary": "#003608",
-                    "secondary": "#006e1c",
-                    "background": "#fafaf3",
-                    "on-error": "#ffffff",
-                    "surface": "#fafaf3",
-                    "on-tertiary-fixed": "#241a00",
-                    "on-primary-fixed": "#002203",
-                    "surface-container": "#efeee7",
-                    "surface-variant": "#e3e3dc",
-                    "on-surface-variant": "#3f4945",
-                    "on-secondary-fixed": "#002204",
-                    "tertiary": "#735c00",
-                    "tertiary-fixed": "#ffe088",
-                    "primary-fixed-dim": "#91d78a",
-                    "inverse-on-surface": "#f2f1ea",
-                    "on-tertiary-container": "#4f3e00",
-                    "on-secondary-fixed-variant": "#005313",
-                    "secondary-container": "#91f78e"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "fontFamily": {
-                    "headline": ["Noto Serif"],
-                    "body": ["Manrope"],
-                    "label": ["Manrope"]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body { font-family: 'Manrope', sans-serif; }
-        h1, h2, h3, .serif { font-family: 'Noto Serif', serif; }
-        .glass-nav { background: rgba(250, 250, 243, 0.7); backdrop-filter: blur(20px); }
-    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 </head>
-<body class="bg-background text-on-surface">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-[#fafaf3]/70 dark:bg-slate-950/70 backdrop-blur-md shadow-sm shadow-[#1b1c18]/5">
-<div class="flex justify-between items-center px-6 md:px-12 py-6 max-w-full mx-auto">
-<div class="font-['Noto_Serif'] text-3xl font-bold tracking-tighter text-[#004D40] dark:text-[#91f78e]">COCO MITHAAS</div>
-<div class="hidden md:flex items-center gap-10">
-<a class="font-['Noto_Serif'] text-lg tracking-tight text-[#004D40] dark:text-[#91f78e] border-b-2 border-[#004D40] pb-1 transition-colors duration-300" href="#collections">Collections</a>
-<a class="font-['Noto_Serif'] text-lg tracking-tight text-[#1b1c18]/60 dark:text-slate-400 pb-1 hover:text-[#004D40] transition-colors duration-300" href="#story">Our Story</a>
-<a class="font-['Noto_Serif'] text-lg tracking-tight text-[#1b1c18]/60 dark:text-slate-400 pb-1 hover:text-[#004D40] transition-colors duration-300" href="#gifting">Gifting</a>
-<a class="font-['Noto_Serif'] text-lg tracking-tight text-[#1b1c18]/60 dark:text-slate-400 pb-1 hover:text-[#004D40] transition-colors duration-300" href="#contact">Contact</a>
+
+<body class="bg-[#f8f7f3]">
+
+<!-- NAVBAR -->
+<div class="flex justify-between p-5 bg-white shadow">
+  <h1 class="text-2xl font-bold text-green-900">COCO MITHAAS</h1>
+  <button onclick="openCart()" class="text-green-900">🛒 Cart</button>
 </div>
-<div class="flex items-center gap-6">
-<button class="text-[#004D40] hover:scale-95 duration-200 ease-in-out">
-<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-</button>
-<button class="text-[#004D40] hover:scale-95 duration-200 ease-in-out">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-</button>
-<button class="md:hidden text-[#004D40]">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
+
+<!-- HERO -->
+<div class="text-center mt-10">
+  <h1 class="text-5xl font-bold text-green-900">COCO MITHAAS</h1>
+  <p class="text-gray-500">The Botanical Confectioner</p>
 </div>
+
+<!-- PRODUCTS -->
+<div class="grid md:grid-cols-2 gap-6 p-10">
+
+  <!-- PRODUCT 1 -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <img src="ladoo.jpg" class="rounded-lg mb-4">
+    <h2 class="text-xl text-green-900 font-semibold">Coco Ladoo</h2>
+    <p class="text-gray-500">₹149</p>
+    <button onclick="addToCart('Coco Ladoo',149)"
+      class="mt-3 bg-green-900 text-white px-4 py-2 rounded-full">
+      ADD TO BASKET
+    </button>
+  </div>
+
+  <!-- PRODUCT 2 -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <img src="box.jpg" class="rounded-lg mb-4">
+    <h2 class="text-xl text-green-900 font-semibold">Family Pack</h2>
+    <p class="text-gray-500">₹449</p>
+    <button onclick="addToCart('Family Pack',449)"
+      class="mt-3 bg-green-900 text-white px-4 py-2 rounded-full">
+      ADD TO BASKET
+    </button>
+  </div>
+
 </div>
-</nav>
-<!-- Hero Section -->
-<header class="relative pt-32 pb-24 md:pt-48 md:pb-36 overflow-hidden bg-surface flex flex-col items-center text-center px-6">
-<div class="relative z-10 max-w-4xl">
-<div class="mb-8 w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-primary-container/10">
-<img class="w-full h-full object-cover" data-alt="Exquisite circular logo featuring intricate botanical gold patterns and a stylized cocoa bean illustration on a deep emerald green background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqt3nE1RPoH5ujjyqgvirwqs0tbWzmKtIdLHs6u2du7rCSdKKLdsjZ24P-toffReVQjMFOTbMxCIkM7F9D-BrDqNv_ffTbGOAwrJIFSx8llb4uEinzbFlNDpT2QLyk368NHxcDyxcHIhq4DCq7rxJhD445My_D771oc0OnIGOs3-N0827anwpIVRttxw1nOXlndn3dtNlQ4dy7lfczVQ3v96w2Y3h9PIrojsm9OfQEcVK81jYeNqN9_YnhHEwEijDQHSxDU6blHL4"/>
+
+<!-- CART MODAL -->
+<div id="cartModal" class="hidden fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
+
+  <div class="bg-white p-6 rounded-xl w-[90%] md:w-[400px]">
+    <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <p class="mt-4 font-semibold">Total: ₹<span id="total"></span></p>
+
+    <!-- FORM -->
+    <input id="name" placeholder="Name" class="w-full border p-2 mt-3">
+    <input id="phone" placeholder="Phone" class="w-full border p-2 mt-2">
+    <input id="address" placeholder="Address" class="w-full border p-2 mt-2">
+
+    <div class="flex gap-2 mt-4">
+      <button onclick="payNow()" class="bg-green-900 text-white px-4 py-2 rounded w-full">
+        Pay Now
+      </button>
+
+      <button onclick="codOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded w-full">
+        COD
+      </button>
+    </div>
+
+    <button onclick="closeCart()" class="mt-3 text-red-500">Close</button>
+  </div>
+
 </div>
-<h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-primary mb-4 leading-none">COCO MITHAAS</h1>
-<p class="font-label text-sm md:text-base uppercase tracking-[0.4em] text-tertiary mb-12">The Botanical Confectioner</p>
-<div class="h-px w-24 bg-tertiary-container mx-auto"></div>
-</div>
-<!-- Ornamental background elements -->
-<div class="absolute top-20 -left-20 w-96 h-96 bg-primary-container/5 rounded-full blur-3xl"></div>
-<div class="absolute bottom-20 -right-20 w-96 h-96 bg-secondary-container/10 rounded-full blur-3xl"></div>
-</header>
-<!-- Offers Banner -->
-<section class="bg-primary text-on-primary py-8 overflow-hidden">
-<div class="flex whitespace-nowrap animate-marquee items-center gap-12 px-4">
-<div class="flex items-center gap-4">
-<span class="font-label tracking-widest text-sm font-bold">10% OFF YOUR FIRST ORDER</span>
-<span class="font-headline italic text-secondary-container">Code: COCO10</span>
-<span class="w-2 h-2 rounded-full bg-tertiary"></span>
-<span class="font-label tracking-widest text-sm font-bold uppercase">Free Shipping over ₹999</span>
-<span class="w-2 h-2 rounded-full bg-tertiary"></span>
-<span class="font-label tracking-widest text-sm font-bold uppercase">Artisanal Botanical Delights</span>
-</div>
-<!-- Repeat for seamless scroll effect -->
-<div class="hidden md:flex items-center gap-4">
-<span class="w-2 h-2 rounded-full bg-tertiary"></span>
-<span class="font-label tracking-widest text-sm font-bold">10% OFF YOUR FIRST ORDER</span>
-<span class="font-headline italic text-secondary-container">Code: COCO10</span>
-<span class="w-2 h-2 rounded-full bg-tertiary"></span>
-<span class="font-label tracking-widest text-sm font-bold uppercase">Free Shipping over ₹999</span>
-</div>
-</div>
-</section>
-<!-- Products Section -->
-<section class="py-24 px-6 md:px-12 bg-surface-container-low" id="collections">
-<div class="max-w-7xl mx-auto">
-<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-<div>
-<span class="font-label text-tertiary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">The Signature Selection</span>
-<h2 class="text-4xl md:text-5xl font-headline text-primary">Handcrafted Perfection</h2>
-</div>
-<div class="h-px flex-grow bg-outline-variant mx-8 hidden md:block opacity-30"></div>
-<p class="font-body text-on-surface-variant max-w-xs text-sm">Every sweet is a symphony of pure coconut, heirloom spices, and botanical extracts.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-<!-- Product 1 -->
-<div class="group relative bg-surface-container-lowest p-6 flex flex-col md:flex-row gap-8 transition-all duration-500 hover:shadow-xl rounded-none">
-<div class="w-full md:w-1/2 aspect-square overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Gourmet coconut ladoos dusted with fine desiccated coconut and garnished with a single green pistachio, presented on a textured cream ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj9EFtV2lLnkON-psOjBnjpSa7YzfuUOAWlojJQiX1wTELoCgMMtzJJvu3XMslW3XByB8Vi3OdSYqVsfwW-T0sNY3jWcNsinlNicY_X3Ef7sAAx6fB3_TTx0fMWQQPDoYpUb2opX7h8_xv5mSZYek99BEsOLEqO4b4PXw3coIjMwBVAYK_Tps3FxoFYbuQ7IxlpHGYfUAci_suDzN8DUKOjzs7vo31XOrm7H8CLEWjUXK7ijR66CuL5hBrwKJ90b4PxF-XsOG2Zxo"/>
-<span class="absolute top-8 left-8 bg-secondary-container text-on-secondary-container px-3 py-1 font-label text-xs font-bold rounded-full uppercase tracking-wider">Signature</span>
-</div>
-<div class="w-full md:w-1/2 flex flex-col justify-center py-4">
-<div class="flex justify-between items-start mb-4">
-<h3 class="text-3xl font-headline text-primary">Coco Ladoo</h3>
-<span class="font-body text-xl font-bold text-on-surface">₹149</span>
-</div>
-<p class="font-label text-tertiary text-xs tracking-widest mb-4 uppercase">Signature 250g Pack</p>
-<p class="font-body text-on-surface-variant text-sm mb-8 leading-relaxed">Infused with pure cardamom and organic coconut milk for a melting texture that whispers heritage in every bite.</p>
-<button class="mt-auto w-full md:w-max px-8 py-3 bg-primary text-on-primary rounded-full font-label font-bold text-xs uppercase tracking-widest hover:bg-primary-container transition-all flex items-center justify-center gap-2">
-                            Add to Basket
-                            <span class="material-symbols-outlined text-sm" data-icon="shopping_basket">shopping_basket</span>
-</button>
-</div>
-</div>
-<!-- Product 2 -->
-<div class="group relative bg-surface-container-lowest p-6 flex flex-col md:flex-row gap-8 transition-all duration-500 hover:shadow-xl rounded-none">
-<div class="w-full md:w-1/2 aspect-square overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A luxury gift box of assorted Indian sweets with gold foil details, open to reveal colorful artisanal treats on a bed of fresh rose petals" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG_78-8EAy8W1c502Jq_mroI3z4N6P4DAWzqrFtbyIftKqfm6BaSCUi6D0bsXBmyyM9zXRItPlNg8o6bX0hD-dTYDhN8xAE_082jooFVi1kY69rNXxIbe9RXbS1UK_mvfPWIjHkpAvD0tqi5kwppodd4Xd8pReRFzjTZK8mcrfnTEI3DSwcQIAy_zjsJU4sAZn5kmxME79sa8vrcUSUE3bTdNFPcjV-yRWVCdx1WXtew7cE9pvMGG-8aPaxWB8FyM-B5l_GS9-puI"/>
-<span class="absolute top-8 left-8 bg-tertiary-container text-on-tertiary-container px-3 py-1 font-label text-xs font-bold rounded-full uppercase tracking-wider">Best Value</span>
-</div>
-<div class="w-full md:w-1/2 flex flex-col justify-center py-4">
-<div class="flex justify-between items-start mb-4">
-<h3 class="text-3xl font-headline text-primary">Family Pack</h3>
-<span class="font-body text-xl font-bold text-on-surface">₹449</span>
-</div>
-<p class="font-label text-tertiary text-xs tracking-widest mb-4 uppercase">Buy 3 Get 1 Free Experience</p>
-<p class="font-body text-on-surface-variant text-sm mb-8 leading-relaxed">A curated collection for the whole family. Includes four signature packs of our finest botanical confectioneries.</p>
-<button class="mt-auto w-full md:w-max px-8 py-3 bg-transparent border-2 border-primary text-primary rounded-full font-label font-bold text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
-                            Claim Offer
-                            <span class="material-symbols-outlined text-sm" data-icon="redeem">redeem</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Contact & Inquiry -->
-<section class="py-24 px-6 md:px-12 bg-surface" id="contact">
-<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-<div class="space-y-12">
-<div>
-<span class="font-label text-tertiary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Get in Touch</span>
-<h2 class="text-5xl font-headline text-primary mb-6">Reach Out</h2>
-<p class="font-body text-on-surface-variant leading-relaxed max-w-md">Whether it's a bulk gifting inquiry or just to share your love for sweets, our concierge is here to assist you.</p>
-</div>
-<div class="space-y-6">
-<div class="flex items-center gap-6 group">
-<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-<span class="material-symbols-outlined" data-icon="call">call</span>
-</div>
-<div>
-<p class="font-label text-xs uppercase tracking-widest text-tertiary">Phone</p>
-<p class="font-body font-bold text-primary">+91 8303560658</p>
-</div>
-</div>
-<div class="flex items-center gap-6 group">
-<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-<span class="material-symbols-outlined" data-icon="mail">mail</span>
-</div>
-<div>
-<p class="font-label text-xs uppercase tracking-widest text-tertiary">Email</p>
-<p class="font-body font-bold text-primary">hello@cocomithaas.com</p>
-</div>
-</div>
-<div class="flex items-center gap-6 group">
-<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
-</div>
-<div>
-<p class="font-label text-xs uppercase tracking-widest text-tertiary">Boutique</p>
-<p class="font-body font-bold text-primary">Varanasi, Uttar Pradesh, India</p>
-</div>
-</div>
-</div>
-</div>
-<div class="bg-surface-container-high p-8 md:p-12 rounded-none relative">
-<form class="space-y-8">
-<div class="relative group">
-<input class="peer w-full bg-transparent border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 transition-colors py-3 px-0 font-body text-on-surface" id="name" placeholder=" " type="text"/>
-<label class="absolute top-3 left-0 font-label text-on-surface-variant transition-all duration-300 pointer-events-none peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs uppercase tracking-widest" for="name">Name</label>
-</div>
-<div class="relative group">
-<input class="peer w-full bg-transparent border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 transition-colors py-3 px-0 font-body text-on-surface" id="email" placeholder=" " type="email"/>
-<label class="absolute top-3 left-0 font-label text-on-surface-variant transition-all duration-300 pointer-events-none peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs uppercase tracking-widest" for="email">Email</label>
-</div>
-<div class="relative group">
-<textarea class="peer w-full bg-transparent border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 transition-colors py-3 px-0 font-body text-on-surface" id="message" placeholder=" " rows="4"></textarea>
-<label class="absolute top-3 left-0 font-label text-on-surface-variant transition-all duration-300 pointer-events-none peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs uppercase tracking-widest" for="message">Message</label>
-</div>
-<button class="w-full bg-primary text-on-primary py-4 font-label font-bold uppercase tracking-[0.2em] hover:bg-primary-container transition-all" type="submit">Send Inquiry</button>
-</form>
-</div>
-</div>
-</section>
-<!-- WhatsApp FAB -->
-<a class="fixed bottom-8 right-8 z-50 group" href="https://wa.me/918303560658" target="_blank">
-<div class="flex items-center gap-4">
-<span class="opacity-0 group-hover:opacity-100 transition-opacity bg-white px-4 py-2 rounded-full shadow-lg text-primary font-label text-xs font-bold uppercase tracking-widest pointer-events-none">Chat with us</span>
-<div class="w-16 h-16 bg-tertiary-container text-on-tertiary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>
-</div>
-</div>
-</a>
-<!-- Footer -->
-<footer class="w-full border-t border-[#fafaf3]/10 bg-[#004D40] dark:bg-black">
-<div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-12 py-16 gap-8 max-w-full mx-auto">
-<div class="font-['Noto_Serif'] text-2xl font-bold text-[#fafaf3]">COCO MITHAAS</div>
-<div class="flex flex-wrap justify-center gap-8">
-<a class="font-['Manrope'] text-sm uppercase tracking-widest text-[#fafaf3] opacity-80 hover:opacity-100 hover:text-[#91f78e] transition-opacity" href="#">Privacy Policy</a>
-<a class="font-['Manrope'] text-sm uppercase tracking-widest text-[#fafaf3] opacity-80 hover:opacity-100 hover:text-[#91f78e] transition-opacity" href="#">Terms of Service</a>
-<a class="font-['Manrope'] text-sm uppercase tracking-widest text-[#fafaf3] opacity-80 hover:opacity-100 hover:text-[#91f78e] transition-opacity" href="#">Shipping Info</a>
-<a class="font-['Manrope'] text-sm uppercase tracking-widest text-[#fafaf3] opacity-80 hover:opacity-100 hover:text-[#91f78e] transition-opacity" href="#">Sustainability</a>
-</div>
-<div class="font-['Manrope'] text-sm uppercase tracking-widest text-[#fafaf3] opacity-60">
-                © 2024 Coco Mithaas. The Botanical Confectioner.
-            </div>
-</div>
-</footer>
-</body></html>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/918303560658" target="_blank"
+style="position:fixed;bottom:20px;left:20px;background:#25D366;color:white;padding:12px;border-radius:50%;">
+💬</a>
+
+<!-- INSTAGRAM -->
+<a href="https://instagram.com/YOUR_USERNAME" target="_blank"
+style="position:fixed;bottom:80px;left:20px;background:#E1306C;color:white;padding:12px;border-radius:50%;">
+📸</a>
+
+<script>
+
+let cart = [];
+
+function addToCart(name, price){
+  cart.push({name, price});
+  alert("Added to cart 🛒");
+}
+
+function openCart(){
+  document.getElementById("cartModal").classList.remove("hidden");
+  renderCart();
+}
+
+function closeCart(){
+  document.getElementById("cartModal").classList.add("hidden");
+}
+
+function renderCart(){
+  let items = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    items += `<p>${item.name} - ₹${item.price} 
+      <button onclick="removeItem(${index})">❌</button></p>`;
+  });
+
+  document.getElementById("cartItems").innerHTML = items;
+  document.getElementById("total").innerText = total;
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCart();
+}
+
+function payNow(){
+  let total = document.getElementById("total").innerText;
+
+  var options = {
+    "key": "rzp_test_YOUR_KEY_HERE",
+    "amount": total * 100,
+    "currency": "INR",
+    "name": "COCO MITHAAS",
+    "handler": function (){
+      alert("Payment Success ✅");
+    }
+  };
+
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+
+function codOrder(){
+  let total = document.getElementById("total").innerText;
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+
+  let msg = `New Order 🧁
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Total: ₹${total}`;
+
+  window.open("https://wa.me/918303560658?text=" + encodeURIComponent(msg));
+}
+
+</script>
+
+</body>
+</html>
