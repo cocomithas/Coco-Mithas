@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coco Mithaas</title>
 
 <style>
 body{
   margin:0;
-  font-family: Arial;
-  background:#f4f4f4;
+  font-family:Arial;
+  background:#f5f5f0;
 }
 
-/* HEADER */
-header{
+/* Header */
+.header{
   background:#0b3d2e;
   color:white;
   text-align:center;
@@ -22,7 +20,7 @@ header{
   font-weight:bold;
 }
 
-/* OFFER BAR */
+/* Offer */
 .offer{
   background:#ffc107;
   text-align:center;
@@ -30,13 +28,12 @@ header{
   font-weight:bold;
 }
 
-/* PRODUCTS */
+/* Products */
 .products{
   display:flex;
   justify-content:center;
-  gap:25px;
-  padding:30px;
-  flex-wrap:wrap;
+  gap:20px;
+  padding:20px;
 }
 
 .card{
@@ -44,7 +41,7 @@ header{
   width:280px;
   border-radius:12px;
   overflow:hidden;
-  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
   text-align:center;
 }
 
@@ -54,79 +51,30 @@ header{
   object-fit:cover;
 }
 
-.card h3{
-  margin:10px 0;
-}
-
 .price{
-  font-size:18px;
-  margin:5px 0;
-}
-
-.offer-text{
-  color:red;
   font-weight:bold;
 }
 
 button{
   background:#0b3d2e;
   color:white;
-  border:none;
   padding:10px;
-  width:90%;
+  border:none;
   margin:10px;
+  width:90%;
   border-radius:6px;
-  cursor:pointer;
 }
 
-/* FORM */
+/* Form */
 .form{
   text-align:center;
   padding:20px;
 }
 
 input, textarea{
-  width:260px;
+  width:250px;
   padding:10px;
   margin:5px;
-}
-
-/* GALLERY */
-.gallery{
-  text-align:center;
-  padding:20px;
-}
-
-.gallery img{
-  width:180px;
-  margin:10px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* ZOOM */
-#zoomBox{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-justify-content:center;
-align-items:center;
-}
-#zoomBox img{
-max-width:90%;
-max-height:90%;
-}
-
-/* FOOTER */
-footer{
-  background:#0b3d2e;
-  color:white;
-  text-align:center;
-  padding:10px;
 }
 </style>
 
@@ -134,96 +82,59 @@ footer{
 
 <body>
 
-<header>COCO MITHAAS</header>
+<div class="header">COCO MITHAAS</div>
 
 <div class="offer">
 🎉 10% OFF with Code COCO10 | Free Shipping above ₹499
 </div>
 
-<!-- PRODUCTS -->
 <div class="products">
 
+<!-- Ladoo -->
 <div class="card">
-<img src="ladoo1.jpeg" onclick="zoomImage(this.src)">
+<img src="ladoo1.jpeg">
 <h3>Coco Ladoo</h3>
 <p class="price">₹149 / 250g</p>
-<button onclick="payNow('Coco Ladoo',149)">💳 Pay & Order</button>
+<button onclick="order('Coco Ladoo',149)">💳 Pay & Order</button>
 </div>
 
+<!-- Family -->
 <div class="card">
-<img src="ladoo2.jpeg" onclick="zoomImage(this.src)">
+<img src="ladoo2.jpeg">
 <h3>Family Pack</h3>
 <p class="price">₹449</p>
-<p class="offer-text">Buy 3 Get 1 Free 🎉</p>
-<button onclick="payNow('Family Pack',449)">💳 Pay & Order</button>
+<p style="color:red;">Buy 3 Get 1 Free 🎉</p>
+<button onclick="order('Family Pack',449)">💳 Pay & Order</button>
 </div>
 
 </div>
 
-<!-- CUSTOMER -->
 <div class="form">
 <h2>Customer Details</h2>
-<input id="name" placeholder="Your Name"><br>
-<input id="phone" placeholder="Phone Number"><br>
-<textarea id="address" placeholder="Full Address"></textarea><br>
-
-<input id="coupon" placeholder="Enter Coupon Code">
-<button onclick="applyCoupon()">Apply</button>
-<p id="msg"></p>
+<input id="name" placeholder="Name"><br>
+<input id="phone" placeholder="Phone"><br>
+<textarea id="address" placeholder="Address"></textarea>
 </div>
-
-<!-- GALLERY -->
-<div class="gallery">
-<h2>Our Gallery</h2>
-<img src="ladoo1.jpeg" onclick="zoomImage(this.src)">
-<img src="ladoo2.jpeg" onclick="zoomImage(this.src)">
-</div>
-
-<!-- ZOOM -->
-<div id="zoomBox" onclick="this.style.display='none'">
-<img id="zoomImg">
-</div>
-
-<footer>© Coco Mithaas</footer>
 
 <script>
-let discount=0;
+function order(item, price){
 
-// coupon
-function applyCoupon(){
-if(coupon.value=="COCO10"){
-discount=0.10;
-msg.innerText="✅ Applied";
-}else{
-msg.innerText="❌ Invalid";
-}
-}
-
-// payment
-function payNow(item,amount){
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let address=document.getElementById("address").value;
 
 if(!name||!phone||!address){
-alert("Fill details");return;
+alert("Fill details first");return;
 }
 
-let final=amount-(amount*discount);
+// UPI
+window.location.href=`upi://pay?pa=8303560658@paytm&pn=CocoMithaas&am=${price}`;
 
-// 👉 apna UPI yaha daalo
-window.location.href=`upi://pay?pa=8303560658@paytm&pn=CocoMithaas&am=${final}&cu=INR`;
-
+// WhatsApp
 setTimeout(()=>{
 window.open(`https://wa.me/918303560658?text=${encodeURIComponent(
-`Order\n${item}\n₹${final}\n${name}\n${phone}\n${address}`)}`);
-},4000);
-}
-
-// zoom
-function zoomImage(src){
-document.getElementById("zoomBox").style.display="flex";
-document.getElementById("zoomImg").src=src;
+`Order\n${item}\n₹${price}\n${name}\n${phone}\n${address}`)}`);
+},3000);
 }
 </script>
 
